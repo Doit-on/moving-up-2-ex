@@ -11,8 +11,8 @@
 
 const APP_META = {
   bookCode: "MU-B2",
-  version: "1.0.1",
-  buildTag: "v1.0.1-bamboo",
+  version: "1.0.2",
+  buildTag: "v1.0.2-bamboo",
   title: "Moving Up 2: Critical Reading",
   level: "ชั้นมัธยมศึกษาปีที่ 5 (Grade 11)",
   publisher: "สำนักพิมพ์ไทยวัฒนาพานิช (ทวพ)",

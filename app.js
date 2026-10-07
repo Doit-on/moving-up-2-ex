@@ -143,8 +143,10 @@ const AudioEngine = {
       return;
     }
 
-    // Try Native Audio first (assets/audio/ex[N].mp3)
-    const audioPath = exercise.audio;
+    // Try Native Audio first (assets/audio/ex[N].mp3 or ex[N].mp3)
+    const audioPath = (window.App && typeof window.App.getAssetPath === 'function')
+      ? window.App.getAssetPath(exercise.audio)
+      : exercise.audio;
     this.nativeAudio = new Audio(audioPath);
     this.nativeAudio.playbackRate = this.playbackRate;
 
@@ -175,12 +177,27 @@ const AudioEngine = {
     };
 
     this.nativeAudio.onerror = () => {
-      console.log('[AudioEngine] Native audio file not found, switching to synchronized paragraph TTS');
-      this.playPassageTTSChunks(exercise);
+      const flatName = exercise.audio.substring(exercise.audio.lastIndexOf('/') + 1);
+      if (this.nativeAudio.src.indexOf(flatName) === -1 || this.nativeAudio.src.includes('assets/')) {
+        console.warn('[AudioEngine] Trying flat root audio:', flatName);
+        this.nativeAudio.src = flatName;
+        this.nativeAudio.play().catch(() => {
+          this.playPassageTTSChunks(exercise);
+        });
+      } else {
+        console.log('[AudioEngine] Native audio file not found, switching to synchronized paragraph TTS');
+        this.playPassageTTSChunks(exercise);
+      }
     };
 
     this.nativeAudio.play().catch(() => {
-      this.playPassageTTSChunks(exercise);
+      const flatName = exercise.audio.substring(exercise.audio.lastIndexOf('/') + 1);
+      if (this.nativeAudio.src.indexOf(flatName) === -1 || this.nativeAudio.src.includes('assets/')) {
+        this.nativeAudio.src = flatName;
+        this.nativeAudio.play().catch(() => this.playPassageTTSChunks(exercise));
+      } else {
+        this.playPassageTTSChunks(exercise);
+      }
     });
   },
 
@@ -242,7 +259,10 @@ const AudioEngine = {
     // If native audio and timestamps are present, play segment directly from native MP3
     if (ex.audio && ex.timestamps && ex.timestamps[idx]) {
       const seg = ex.timestamps[idx];
-      this.nativeAudio = new Audio(ex.audio);
+      const audioPath = (window.App && typeof window.App.getAssetPath === 'function')
+        ? window.App.getAssetPath(ex.audio)
+        : ex.audio;
+      this.nativeAudio = new Audio(audioPath);
       this.nativeAudio.playbackRate = this.playbackRate;
       this.nativeAudio.currentTime = seg.start;
 
@@ -263,11 +283,25 @@ const AudioEngine = {
       };
 
       this.nativeAudio.onerror = () => {
-        this.playSingleParagraphTTS(ex, idx);
+        const flatAudio = ex.audio.substring(ex.audio.lastIndexOf('/') + 1);
+        if (this.nativeAudio.src.indexOf(flatAudio) === -1 || this.nativeAudio.src.includes('assets/')) {
+          this.nativeAudio.src = flatAudio;
+          this.nativeAudio.currentTime = seg.start;
+          this.nativeAudio.play().catch(() => this.playSingleParagraphTTS(ex, idx));
+        } else {
+          this.playSingleParagraphTTS(ex, idx);
+        }
       };
 
       this.nativeAudio.play().catch(() => {
-        this.playSingleParagraphTTS(ex, idx);
+        const flatAudio = ex.audio.substring(ex.audio.lastIndexOf('/') + 1);
+        if (this.nativeAudio.src.indexOf(flatAudio) === -1 || this.nativeAudio.src.includes('assets/')) {
+          this.nativeAudio.src = flatAudio;
+          this.nativeAudio.currentTime = seg.start;
+          this.nativeAudio.play().catch(() => this.playSingleParagraphTTS(ex, idx));
+        } else {
+          this.playSingleParagraphTTS(ex, idx);
+        }
       });
       return;
     }
@@ -383,6 +417,24 @@ const AudioEngine = {
 // Main Application Controller
 // ============================================================
 const App = {
+  getAssetPath(url) {
+    if (!url) return '';
+    if (window.IS_FLAT_STRUCTURE) {
+      return url.substring(url.lastIndexOf('/') + 1);
+    }
+    return url;
+  },
+
+  handleImgError(img) {
+    if (!img) return;
+    if (!img.dataset.triedFlat && img.src && img.src.includes('assets/')) {
+      img.dataset.triedFlat = '1';
+      img.src = img.src.substring(img.src.lastIndexOf('/') + 1);
+    } else {
+      img.src = window.IS_FLAT_STRUCTURE ? 'cover.jpg' : 'assets/images/cover.jpg';
+    }
+  },
+
   init() {
     SettingsController.init();
     I18N.applyTranslations();
@@ -472,7 +524,7 @@ const App = {
       return `
         <div class="exercise-card" onclick="App.enterExercise(${ex.id})">
           <div class="card-thumb-wrap">
-            <img src="${ex.cover}" alt="${ex.title}" loading="lazy" onerror="this.src='assets/images/cover.jpg'">
+            <img src="${App.getAssetPath(ex.cover)}" alt="${ex.title}" loading="lazy" onerror="App.handleImgError(this)">
             <div class="card-badge-unit">Unit ${ex.id}</div>
             ${statusHtml}
           </div>
@@ -528,8 +580,9 @@ const App = {
     const bodyEl = document.getElementById('passageTextBody');
 
     if (heroImg) {
-      heroImg.src = ex.cover;
+      heroImg.src = App.getAssetPath(ex.cover);
       heroImg.alt = ex.title;
+      heroImg.onerror = function() { App.handleImgError(this); };
     }
 
     if (skillBox) {
@@ -1043,7 +1096,7 @@ const App = {
     track.innerHTML = items.map(p => `
       <div class="showcase-item-card" title="${p.title}">
         <div class="showcase-cover-thumb">
-          <img src="${p.image}" alt="${p.title}" loading="lazy" onerror="this.src='assets/images/cover.jpg'">
+          <img src="${App.getAssetPath(p.image)}" alt="${p.title}" loading="lazy" onerror="App.handleImgError(this)">
         </div>
         <div class="showcase-item-info">
           <span class="showcase-item-tag">${p.tag}</span>
@@ -1091,7 +1144,8 @@ const App = {
     const modal = document.getElementById('lightboxModal');
     const img = document.getElementById('lightboxImg');
     if (modal && img) {
-      img.src = imgSrc;
+      img.src = App.getAssetPath(imgSrc);
+      img.onerror = function() { App.handleImgError(this); };
       modal.classList.add('active');
     }
   },

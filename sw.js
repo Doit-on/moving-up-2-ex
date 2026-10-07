@@ -3,7 +3,7 @@
  * Cache Strategy: Cache-first with Network Fallback & Auto Purge
  */
 
-const CACHE_NAME = 'moving-up-2-v1.0.1';
+const CACHE_NAME = 'moving-up-2-v1.0.2';
 
 const ASSETS_TO_CACHE = [
   './',
@@ -51,8 +51,17 @@ const ASSETS_TO_CACHE = [
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(ASSETS_TO_CACHE);
+    caches.open(CACHE_NAME).then(async cache => {
+      for (const url of ASSETS_TO_CACHE) {
+        try {
+          await cache.add(url);
+        } catch (e) {
+          try {
+            const flatUrl = './' + url.split('/').pop();
+            await cache.add(flatUrl);
+          } catch(e2) {}
+        }
+      }
     }).then(() => self.skipWaiting())
   );
 });
@@ -79,6 +88,9 @@ self.addEventListener('fetch', event => {
         const respClone = response.clone();
         caches.open(CACHE_NAME).then(cache => cache.put(event.request, respClone));
         return response;
+      }).catch(() => {
+        const filename = event.request.url.split('/').pop();
+        return caches.match('./' + filename);
       });
     })
   );

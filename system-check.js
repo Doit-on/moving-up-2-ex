@@ -1,7 +1,7 @@
 /**
  * ==============================================================================
  * Moving Up 2: Critical Reading (ม.5) - System Diagnostic Check
- * Application Version: v1.0.1-bamboo (Book Code: MU-B2)
+ * Application Version: v1.0.2-bamboo (Book Code: MU-B2)
  * ==============================================================================
  */
 

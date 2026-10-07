@@ -1,7 +1,7 @@
 # Moving Up 2: Critical Reading (ม.5) - Deployment & Operation Guide
 
 **เว็บแอปพลิเคชันเพื่อการศึกษา สำนักพิมพ์ไทยวัฒนาพานิช (ทวพ) & WorldCom ELT**  
-**รหัสเล่ม:** `MU-B2` | **เวอร์ชัน:** `v1.0.1-bamboo` (Complete Edition - All 10 Audio Tracks Included)
+**รหัสเล่ม:** `MU-B2` | **เวอร์ชัน:** `v1.0.2-bamboo` (Universal Dual-Path Edition - All 10 Tracks Included)
 
 ---
 
