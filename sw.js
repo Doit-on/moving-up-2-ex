@@ -3,7 +3,7 @@
  * Cache Strategy: Cache-first with Network Fallback & Auto Purge
  */
 
-const CACHE_NAME = 'moving-up-2-v1.0.2';
+const CACHE_NAME = 'moving-up-2-v1.0.3';
 
 const ASSETS_TO_CACHE = [
   './',
@@ -78,11 +78,35 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
+
+  const url = new URL(event.request.url);
+  const isHtml = event.request.mode === 'navigate' || 
+                 event.request.destination === 'document' || 
+                 url.pathname.endsWith('.html') || 
+                 url.pathname.endsWith('/');
+
+  // 1. For HTML pages: Network-First with Cache Fallback (Never stuck on stale HTML without Ctrl+F5!)
+  if (isHtml) {
+    event.respondWith(
+      fetch(event.request).then(response => {
+        if (response && response.status === 200) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+        }
+        return response;
+      }).catch(() => {
+        return caches.match(event.request).then(cached => cached || caches.match('./index.html') || caches.match('index.html'));
+      })
+    );
+    return;
+  }
+
+  // 2. For static assets (audio, images, css, fonts): Cache-First with Network Fallback (Fast & offline)
   event.respondWith(
     caches.match(event.request).then(cached => {
       if (cached) return cached;
       return fetch(event.request).then(response => {
-        if (!response || response.status !== 200 || response.type !== 'basic') {
+        if (!response || response.status !== 200) {
           return response;
         }
         const respClone = response.clone();
@@ -90,7 +114,7 @@ self.addEventListener('fetch', event => {
         return response;
       }).catch(() => {
         const filename = event.request.url.split('/').pop();
-        return caches.match('./' + filename);
+        return caches.match('./' + filename) || caches.match(filename);
       });
     })
   );
