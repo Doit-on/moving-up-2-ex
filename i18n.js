@@ -67,23 +67,23 @@ const I18N = {
 
     // Tabs
     tab_part_a: { th: 'Part 1: อ่านวิเคราะห์ (MCQ)', en: 'Part 1: Reading (MCQ)' },
-    tab_part_b: { th: 'Part 2: เติมคำศัพท์ (Word Bank)', en: 'Part 2: Word Bank' },
+    tab_part_b: { th: 'Part 2: เติมคำศัพท์ (Fill in the blanks)', en: 'Part 2: Fill in the blanks' },
     tab_part_c: { th: 'Part 3: เรียงประโยค (Unscramble)', en: 'Part 3: Unscramble' },
     tab_review: { th: 'สรุปผล & ทักษะประจำบท', en: 'Review & Skill Focus' },
 
     // Instructions
     inst_part_a_title: { th: 'Part 1: Comprehension & Critical Analysis', en: 'Part 1: Comprehension & Critical Analysis' },
     inst_part_a_sub: { th: 'เลือกคำตอบที่ถูกต้องที่สุดจากบทอ่านด้านซ้าย (5 ข้อ 5 คะแนน)', en: 'Choose the best answer based on the passage on the left (5 items, 5 pts)' },
-    inst_part_b_title: { th: 'Part 2: Word Bank (คลังคำศัพท์)', en: 'Part 2: Word Bank' },
-    inst_part_b_sub: { th: 'แตะเลือกคำศัพท์จากกล่องด้านบนเพื่อนำมาเติมในช่องว่างให้ประโยคสมบูรณ์ (ไม่มีคำใบ้)', en: 'Select words from the word bank to fill each blank correctly (Derangement order, no hints)' },
+    inst_part_b_title: { th: 'Part 2: Fill in the blanks', en: 'Part 2: Fill in the blanks' },
+    inst_part_b_sub: { th: 'แตะเลือกคำศัพท์จากกล่องด้านบนเพื่อนำมาเติมในช่องว่างให้ประโยคสมบูรณ์', en: 'Select words from the box to fill each blank correctly' },
     inst_part_c_title: { th: 'Part 3: Sentence Unscramble (การเรียงประโยค)', en: 'Part 3: Sentence Unscramble' },
     inst_part_c_sub: { th: 'แตะกลุ่มคำด้านล่างเพื่อเรียงเป็นประโยคที่ถูกต้องตามโครงสร้างไวยากรณ์และความหมาย', en: 'Tap the token cards to build the grammatically correct target sentence' },
 
     // Interactive Buttons
     btn_check_answers: { th: 'ตรวจคำตอบ', en: 'Check Answers' },
     btn_summary_part: { th: '📊 ตรวจ & สรุปคะแนนพาร์ทนี้', en: '📊 Check & summarize this part' },
-    btn_show_key: { th: 'ดูเฉลยพร้อมคำอธิบาย', en: 'Show Solutions & Explanations' },
-    btn_hide_key: { th: 'ซ่อนเฉลย', en: 'Hide Solutions' },
+    btn_show_key: { th: 'ดูเฉลยพร้อมคำอธิบาย', en: 'Show Answers & Explanations' },
+    btn_hide_key: { th: 'ซ่อนเฉลย', en: 'Hide Answers' },
     btn_reset_tokens: { th: 'ล้างคำตอบ', en: 'Reset' },
     btn_next_part: { th: 'ไปยังพาร์ทถัดไป ➔', en: 'Next Part ➔' },
     btn_finish_unit: { th: 'สรุปผลคะแนนบทนี้ 🎉', en: 'View Unit Summary 🎉' },
@@ -94,7 +94,7 @@ const I18N = {
     summary_title_good: { th: 'ทำได้ดี! ฝึกฝนทบทวนเพิ่มเติมเพื่อคะแนนเต็ม', en: 'Good Job! Review and Practice to Score Higher' },
     summary_total_score: { th: 'คะแนนรวมประจำบท (เต็ม 15 คะแนน)', en: 'Total Unit Score (Max 15 Pts)' },
     summary_part_a: { th: 'Part 1: อ่านวิเคราะห์', en: 'Part 1: Reading' },
-    summary_part_b: { th: 'Part 2: คลังคำศัพท์', en: 'Part 2: Word Bank' },
+    summary_part_b: { th: 'Part 2: Fill in the blanks', en: 'Part 2: Fill in the blanks' },
     summary_part_c: { th: 'Part 3: เรียงประโยค', en: 'Part 3: Unscramble' },
     btn_retry_unit: { th: 'ทำบทนี้อีกครั้ง ↺', en: 'Retry This Unit ↺' },
     btn_choose_next: { th: 'ไปยังบทเรียนถัดไป ➔', en: 'Next Unit ➔' },

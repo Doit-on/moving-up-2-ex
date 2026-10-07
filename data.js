@@ -11,8 +11,8 @@
 
 const APP_META = {
   bookCode: "MU-B2",
-  version: "1.0.2",
-  buildTag: "v1.0.2-bamboo",
+  version: "1.0.0",
+  buildTag: "v1.0.0-bamboo",
   title: "Moving Up 2: Critical Reading",
   level: "ชั้นมัธยมศึกษาปีที่ 5 (Grade 11)",
   publisher: "สำนักพิมพ์ไทยวัฒนาพานิช (ทวพ)",
@@ -193,20 +193,20 @@ const DEFAULT_EXERCISES = [
         "evidence",
         "ancient",
         "reveal",
-        "archaeologists"
+        "Archaeologists"
       ],
       "scrambledWords": [
         "ancient",
         "evidence",
         "artifacts",
-        "archaeologists",
+        "Archaeologists",
         "reveal"
       ],
       "questions": [
         {
           "id": 1,
           "sentence": "__________ study objects and places to learn about the past.",
-          "answer": "archaeologists"
+          "answer": "Archaeologists"
         },
         {
           "id": 2,
@@ -274,7 +274,7 @@ const DEFAULT_EXERCISES = [
           "examine",
           "safely",
           "Modern technology",
-          "ancient site",
+          "ancient sites",
           "helps experts"
         ],
         "shuffledTokens": [
@@ -282,7 +282,7 @@ const DEFAULT_EXERCISES = [
           "safely.",
           "examine",
           "helps experts",
-          "ancient site"
+          "ancient sites"
         ]
       },
       {
@@ -742,7 +742,7 @@ const DEFAULT_EXERCISES = [
           "for bone health",
           "can provide",
           "Healthy food",
-          "nutrient",
+          "nutrients",
           "important"
         ],
         "shuffledTokens": [
@@ -750,7 +750,7 @@ const DEFAULT_EXERCISES = [
           "can provide",
           "for bone health.",
           "important",
-          "nutrient"
+          "nutrients"
         ]
       },
       {
@@ -1209,13 +1209,13 @@ const DEFAULT_EXERCISES = [
           "to create images",
           "Both",
           "light",
-          "eyes and camera"
+          "eyes and cameras"
         ],
         "shuffledTokens": [
           "Both",
           "to create images.",
           "depend on",
-          "eyes and camera",
+          "eyes and cameras",
           "light"
         ]
       }
@@ -1360,12 +1360,12 @@ const DEFAULT_EXERCISES = [
         "tokens": [
           "can encourage",
           "to explore",
-          "Attractive display",
+          "Attractive displays",
           "shoppers",
           "new products"
         ],
         "shuffledTokens": [
-          "Attractive display",
+          "Attractive displays",
           "to explore",
           "can encourage",
           "new products.",
@@ -1415,7 +1415,7 @@ const DEFAULT_EXERCISES = [
           "a shopping list",
           "their spending",
           "Making",
-          "help people",
+          "can help people",
           "control"
         ],
         "shuffledTokens": [
@@ -1423,7 +1423,7 @@ const DEFAULT_EXERCISES = [
           "their spending.",
           "a shopping list",
           "control",
-          "help people"
+          "can help people"
         ]
       },
       {
@@ -1583,12 +1583,12 @@ const DEFAULT_EXERCISES = [
         "tokens": [
           "rubbish",
           "environmental problems",
-          "Large amount of",
+          "Large amounts of",
           "can create",
           "serious"
         ],
         "shuffledTokens": [
-          "Large amount of",
+          "Large amounts of",
           "environmental problems.",
           "rubbish",
           "serious",
@@ -2077,15 +2077,15 @@ const DEFAULT_EXERCISES = [
         "id": 4,
         "target": "Modern payment systems should be accessible to everyone.",
         "tokens": [
-          "to everyone",
-          "Modern payment system",
+          "everyone",
+          "Modern payment systems",
           "accessible to",
           "should be"
         ],
         "shuffledTokens": [
           "accessible to",
-          "Modern payment system",
-          "to everyone.",
+          "Modern payment systems",
+          "everyone.",
           "should be"
         ]
       },
@@ -2301,14 +2301,14 @@ const DEFAULT_EXERCISES = [
         "target": "A decline in pollinators may affect global food production.",
         "tokens": [
           "food production",
-          "in pollinations",
+          "in pollinators",
           "global",
           "A decline",
           "may affect"
         ],
         "shuffledTokens": [
           "global",
-          "in pollinations",
+          "in pollinators",
           "food production.",
           "may affect",
           "A decline"
